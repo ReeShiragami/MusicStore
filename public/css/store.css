@@ -1,0 +1,131 @@
+/* ==========================================================
+   PENGATURAN UTAMA. EDIT DI SINI untuk mengubah tampilan
+   ========================================================== */
+:root {
+  /* BACKGROUND: warna dasar seluruh halaman */
+  --bg-color: #F2F4F5;
+
+  /* BACKGROUND GAMBAR (opsional): letakkan gambar di public/images/bg.jpg
+     lalu ganti "none" jadi url('/images/bg.jpg') */
+  --bg-image: none;
+
+  --text-color: #222;          /* warna teks utama */
+  --muted-color: #777;         /* warna teks sekunder (album, genre, durasi) */
+  --accent-color: #7895B2;     /* warna tombol utama & link (biru ala Bandcamp) */
+  --danger-color: #c0392b;     /* warna tombol hapus/batal */
+  --heart-color: #e0245e;      /* warna ♥ saat difavoritkan */
+
+  --card-bg: #ffffff;          /* warna latar kartu lagu & panel */
+  --border-color: #C7D0D8;     /* warna garis tepi */
+  --radius: 6px;               /* kebulatan sudut (0 = kotak tajam) */
+
+  --container-width: 1100px;   /* LEBAR MAKSIMAL isi halaman */
+  --card-min-width: 170px;     /* UKURAN KARTU LAGU. Makin kecil = gambar makin kecil & kolom makin banyak */
+  --grid-gap: 20px;            /* JARAK antar kartu lagu */
+
+  --header-bg: #ffffff;        /* warna latar header (bar atas) */
+  --font-main: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; /* JENIS FONT */
+}
+
+/* ---------- DASAR HALAMAN ---------- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  color: var(--text-color);
+  background-color: var(--bg-color);   /* BACKGROUND (pakai variabel di atas) */
+  background-image: var(--bg-image);
+  background-size: cover;              /* gambar background menutup penuh */
+  background-attachment: fixed;        /* gambar diam saat halaman di-scroll */
+}
+
+a { color: var(--accent-color); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Pembungkus isi halaman: mengatur lebar & jarak ke tepi */
+.container { max-width: var(--container-width); margin: 0 auto; padding: 0 16px; }
+main.container { padding-top: 24px; padding-bottom: 48px; }
+
+/* ---------- HEADER (bar atas) ---------- */
+.site-header { background: var(--header-bg); border-bottom: 1px solid var(--border-color); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+.brand { font-weight: 700; font-size: 18px; color: var(--text-color); }   /* nama artist di kiri */
+.nav { display: flex; align-items: center; gap: 16px; font-size: 14px; }  /* menu di kanan */
+.nav form { margin: 0; }
+
+/* ---------- HERO (banner nama artist di katalog) ---------- */
+.hero { padding: 24px 0 8px; }
+.hero h1 { margin: 0; font-size: 28px; }              /* ukuran nama artist */
+.hero p { margin: 4px 0 0; color: var(--muted-color); }
+
+/* ---------- FILTER GENRE ---------- */
+.genre-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 20px; }
+.chip { padding: 4px 12px; border: 1px solid var(--border-color); border-radius: 999px; background: var(--card-bg); font-size: 13px; color: var(--text-color); }
+.chip.is-active { background: var(--accent-color); border-color: var(--accent-color); color: #fff; }
+
+/* ---------- GRID LAGU (inti tampilan ala Bandcamp) ---------- */
+/* Jumlah kolom otomatis menyesuaikan lebar layar & --card-min-width */
+.song-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr)); gap: var(--grid-gap); }
+
+.song-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 10px; }
+
+/* GAMBAR LAGU: selalu persegi 1:1. Ukurannya mengikuti lebar kartu (lihat --card-min-width) */
+.song-cover { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: calc(var(--radius) - 2px); background: #eee; }
+
+.song-title { margin: 10px 0 2px; font-size: 15px; line-height: 1.3; }
+.song-meta { margin: 0; font-size: 12px; color: var(--muted-color); }
+.song-actions { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; gap: 6px; }
+.song-actions form { margin: 0; }
+.price { font-weight: 600; font-size: 14px; }
+
+.badge { font-size: 12px; padding: 3px 8px; border-radius: 999px; background: #e6f4ea; color: #1e7b3a; }
+.badge-pending   { background: #fff4d6; color: #8a6200; }
+.badge-paid      { background: #e6f4ea; color: #1e7b3a; }
+.badge-cancelled { background: #fde8e6; color: #a32a1d; }
+
+/* ---------- TOMBOL ---------- */
+.btn { display: inline-block; padding: 6px 12px; border: 1px solid var(--border-color); border-radius: var(--radius); background: var(--card-bg); color: var(--text-color); font-size: 13px; cursor: pointer; }
+.btn:hover { text-decoration: none; filter: brightness(0.96); }
+.btn-primary { background: var(--accent-color); border-color: var(--accent-color); color: #fff; }
+.btn-danger  { background: var(--danger-color); border-color: var(--danger-color); color: #fff; }
+.btn-heart { border: none; background: none; font-size: 22px; line-height: 1; cursor: pointer; color: #bbb; }
+.btn-heart.is-active { color: var(--heart-color); }   /* ♥ yang aktif */
+
+/* ---------- PESAN NOTIFIKASI ---------- */
+.alert { padding: 10px 14px; border-radius: var(--radius); margin-bottom: 16px; font-size: 14px; }
+.alert-success { background: #e6f4ea; color: #1e7b3a; }
+.alert-error   { background: #fde8e6; color: #a32a1d; }
+
+/* ---------- PANEL, TABEL, FORM (halaman admin & pembayaran) ---------- */
+.panel { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 16px; margin-bottom: 20px; }
+.panel h2 { margin-top: 0; font-size: 18px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+th { font-size: 12px; text-transform: uppercase; color: var(--muted-color); }
+.thumb { width: 40px; height: 40px; object-fit: cover; aspect-ratio: 1 / 1; border-radius: 4px; }  /* gambar kecil di tabel admin */
+
+.form-panel label { display: block; margin: 12px 0 4px; font-size: 13px; font-weight: 600; }
+input[type=text], input[type=number], input[type=file], select { width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: var(--radius); font: inherit; }
+.inline-form { display: flex; gap: 6px; }
+.inline-form input { width: auto; flex: 1; }
+.add-form { display: flex; gap: 8px; margin-bottom: 16px; }
+.add-form input { width: auto; flex: 1; }
+
+/* Statistik di dashboard admin (3 kotak di atas) */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+.stat { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 14px; }
+.stat strong { display: block; font-size: 26px; }
+
+/* Dashboard admin: User A & User B berdampingan. Ganti "1fr 1fr" jadi "1fr" kalau mau menurun */
+.user-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+
+/* ---------- FOOTER ---------- */
+.site-footer { text-align: center; padding: 24px 0; font-size: 12px; color: var(--muted-color); }
+
+/* ---------- RESPONSIF (layar HP) ---------- */
+@media (max-width: 720px) {
+  .user-columns { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr; }
+}

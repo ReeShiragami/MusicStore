@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Kotak persegi 1:1 sebagai latar. Ganti kode warna fill untuk ubah warnanya -->
+  <rect width="100" height="100" fill="#d8d3c8"/>
+  <!-- Simbol nada di tengah -->
+  <text x="50" y="58" font-size="34" text-anchor="middle" fill="#9a9486">♪</text>
+</svg>
