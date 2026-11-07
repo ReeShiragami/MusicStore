@@ -21,7 +21,7 @@
                     <tbody>
                         @forelse ($user->orders as $order)
                             <tr>
-                                <td>{{ $order->order_code }}<br><small style="color: var(--muted-color)">Rp {{ number_format($order->total_price, 0, ',', '.') }}</small></td>
+                                <td>{{ $order->order_code }}<br><small style="color: var(--muted-color)">{{ $order->total_price_formatted }}    </small></td>
                                 <td>{{ $order->items->pluck('song_title')->join(', ') }}</td>
                                 <td><span class="badge badge-{{ $order->status }}">{{ $order->status }}</span></td>
                                 <td>

@@ -6,7 +6,7 @@ return [
     'artist_name' => 'ツユ',
 
     // GANTI di sini: tagline di bawah nama artist
-    'tagline' => 'Official digital music store',
+    'tagline' => 'Official Digital Music Store',
 
     'currency_symbol' => '¥',
 ];

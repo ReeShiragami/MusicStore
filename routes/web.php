@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pembayaran/{order}', [OrderController::class, 'pay'])->name('orders.pay');
     Route::post('/pembayaran/{order}', [OrderController::class, 'confirm'])->name('orders.confirm');
     Route::get('/pembelian-saya', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/koleksi', [\App\Http\Controllers\LibraryController::class, 'index'])->name('library');
 
     // Bawaan Breeze (edit profil)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

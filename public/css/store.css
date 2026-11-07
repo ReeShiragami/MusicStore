@@ -68,8 +68,108 @@ main.container { padding-top: 24px; padding-bottom: 48px; }
 /* Jumlah kolom otomatis menyesuaikan lebar layar & --card-min-width */
 .song-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr)); gap: var(--grid-gap); }
 
-.song-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 10px; }
+/* ---------- KARTU LAGU ---------- */
+/* Kartu disusun vertikal (flex column) supaya baris harga/tombol bisa
+   menempel di dasar kartu dan tinggi semua kartu dalam satu baris sama */
+.song-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 10px;
+}
 
+/* Area info mengisi sisa ruang, mendorong .song-actions ke bawah */
+.song-body { flex: 1; }
+
+/* ---------- HALAMAN KOLEKSI ---------- */
+/* Teks ringkasan di atas grid (jumlah lagu & total) */
+.library-summary { color: var(--muted-color); margin: 0 0 20px; }
+.library-summary strong { color: var(--text-color); }
+
+/* Baris bawah kartu koleksi: tanggal & kode di kiri, harga di kanan.
+   Gayanya dibuat sama dengan .song-actions di katalog */
+.owned-meta {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
+}
+.owned-meta > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.owned-date { font-size: 12px; color: var(--text-color); }   /* tanggal beli */
+.owned-code { font-size: 11px; color: var(--muted-color); }  /* kode transaksi */
+
+/* JUDUL: maksimal 2 baris. EDIT DI SINI: ubah angka 2 (di dua tempat)
+   kalau mau menampilkan 3 baris, dan ubah font-size untuk ukuran huruf */
+.song-title {
+  margin: 10px 0 4px;
+  font-size: 15px;
+  line-height: 1.3;
+  min-height: calc(1.3em * 2);          /* ruang 2 baris, supaya kartu rata */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* NAMA ALBUM: 1 baris, dipotong dengan "..." kalau kepanjangan */
+.song-album {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: var(--muted-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* BARIS TAG GENRE + DURASI */
+.song-tags { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+
+/* TAG GENRE (kapsul kecil). EDIT DI SINI: background & color untuk warna tag */
+.tag {
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #eaf2f5;
+  color: #3d5a68;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.song-duration { font-size: 12px; color: var(--muted-color); }
+
+/* BARIS BAWAH: harga kiri, tombol kanan, dipisah garis tipis */
+.song-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
+}
+.song-buttons { display: flex; align-items: center; gap: 4px; }
+.song-buttons form { margin: 0; display: flex; }
+.price { font-weight: 600; font-size: 14px; }
+
+/* TOMBOL BELI & BADGE "DIMILIKI": ukuran dibuat sama persis.
+   EDIT DI SINI: height / min-width untuk mengubah ukuran tombol */
+.btn-buy,
+.badge-owned {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  min-width: 78px;
+  padding: 0 12px;
+  font-size: 13px;
+  border-radius: var(--radius);
+}
+.badge-owned { border: 1px solid transparent; }
 /* GAMBAR LAGU: selalu persegi 1:1. Ukurannya mengikuti lebar kartu (lihat --card-min-width) */
 .song-cover { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: calc(var(--radius) - 2px); background: #eee; }
 
@@ -89,9 +189,22 @@ main.container { padding-top: 24px; padding-bottom: 48px; }
 .btn:hover { text-decoration: none; filter: brightness(0.96); }
 .btn-primary { background: var(--accent-color); border-color: var(--accent-color); color: #fff; }
 .btn-danger  { background: var(--danger-color); border-color: var(--danger-color); color: #fff; }
-.btn-heart { border: none; background: none; font-size: 22px; line-height: 1; cursor: pointer; color: #bbb; }
-.btn-heart.is-active { color: var(--heart-color); }   /* ♥ yang aktif */
-
+/* TOMBOL ♥: kotak 30x30 supaya sejajar dengan tombol Beli */
+.btn-heart {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  color: #bbb;
+}
+.btn-heart.is-active { color: var(--heart-color); }
 /* ---------- PESAN NOTIFIKASI ---------- */
 .alert { padding: 10px 14px; border-radius: var(--radius); margin-bottom: 16px; font-size: 14px; }
 .alert-success { background: #e6f4ea; color: #1e7b3a; }

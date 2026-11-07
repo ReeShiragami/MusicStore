@@ -9,13 +9,20 @@
         <p>{{ config('store.tagline') }}</p>
     </section>
 
-    {{-- ===== FILTER GENRE ===== --}}
-    <div class="genre-filter">
-        <a class="chip {{ request('genre') ? '' : 'is-active' }}" href="{{ route('catalog') }}">Semua</a>
-        @foreach ($genres as $genre)
-            <a class="chip {{ request('genre') === $genre->slug ? 'is-active' : '' }}"
-               href="{{ route('catalog', ['genre' => $genre->slug]) }}">{{ $genre->name }}</a>
-        @endforeach
+    {{-- ===== FILTER GENRE & SEARCH ===== --}}
+    <div class="search-filter">
+        <form method="GET" action="{{ route('catalog') }}" class="search-form">
+            <div class="search-group">
+                <input type="text" name="search" placeholder="Cari lagu..." value="{{ request('search') }}">
+            </div>
+            <div class="genre-filter">
+                <a class="chip {{ request('genre') ? '' : 'is-active' }}" href="{{ route('catalog', ['search' => request('search')]) }}">Semua</a>
+                @foreach ($genres as $genre)
+                    <a class="chip {{ request('genre') === $genre->slug ? 'is-active' : '' }}"
+                       href="{{ route('catalog', ['genre' => $genre->slug, 'search' => request('search')]) }}">{{ $genre->name }}</a>
+                @endforeach
+            </div>
+        </form>
     </div>
 
     {{-- ===== GRID LAGU. Jumlah kolom & ukuran kartu diatur di CSS (.song-grid) ===== --}}

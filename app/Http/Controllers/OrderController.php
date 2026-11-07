@@ -73,7 +73,7 @@ class OrderController extends Controller
             'paid_at'        => now(),
         ]);
 
-        return redirect()->route('orders.index')->with('success', "Pembayaran {$order->order_code} berhasil (simulasi).");
+    return redirect()->route('library')->with('success', "Pembayaran {$order->order_code} berhasil (simulasi).");    
     }
 
     // Riwayat pembelian milik user yang login

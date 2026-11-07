@@ -15,12 +15,12 @@
                         <td>{{ $item->song_title }}</td>
                         <td>{{ $item->album_title }}</td>
                         <td>{{ $item->genre_name }}</td>
-                        <td>Rp {{ number_format($item->price, 0, ',', '.') }}</td>
+                        <td>￥ {{ $item->price_formatted }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        <p><strong>Total: Rp {{ number_format($order->total_price, 0, ',', '.') }}</strong></p>
+        <p><strong>Total: ￥ {{ $item->price_formatted }}</strong></p>
     </div>
 
     {{-- Pilih metode pembayaran (SIMULASI, tidak ada validasi pembayaran) --}}
@@ -32,7 +32,6 @@
             <option value="e-wallet">E-Wallet</option>
             <option value="kartu">Kartu Kredit/Debit</option>
         </select>
-        <p style="color: var(--muted-color); font-size: 13px;">Ini hanya simulasi, tidak ada pembayaran sungguhan.</p>
         <button class="btn btn-primary" type="submit">Bayar</button>
         <a class="btn" href="{{ route('catalog') }}">Kembali</a>
     </form>

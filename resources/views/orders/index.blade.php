@@ -13,7 +13,7 @@
                         <td>{{ $order->order_code }}</td>
                         <td>{{ $order->items->pluck('song_title')->join(', ') }}</td>
                         <td>{{ $order->payment_method ?? '-' }}</td>
-                        <td>Rp {{ number_format($order->total_price, 0, ',', '.') }}</td>
+                        <td>{{ $order->total_price_formatted }}</td>
                         <td><span class="badge badge-{{ $order->status }}">{{ $order->status }}</span></td>
                         <td>
                             {{-- Order yang belum dibayar bisa dilanjutkan --}}

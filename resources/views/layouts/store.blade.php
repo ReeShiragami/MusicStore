@@ -25,10 +25,10 @@
                 @else
                     {{-- Menu untuk USER --}}
                     <a href="{{ route('catalog') }}">Katalog</a>
+                    <a href="{{ route('library') }}">Koleksi Saya</a>   {{-- menu baru --}}
                     <a href="{{ route('favorites.index') }}">Favorit</a>
                     <a href="{{ route('orders.index') }}">Pembelian Saya</a>
                 @endif
-
                 <span>{{ auth()->user()->name }}</span>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
